@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Citizen Login</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        body{
+            font-family:'Poppins',sans-serif;
+            background:#f4f7fb;
+        }
+
+        .card{
+            background:white;
+            padding:40px;
+            border-radius:24px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .input{
+            width:100%;
+            padding:14px;
+            border-radius:12px;
+            border:1px solid #d1d5db;
+            margin-top:8px;
+        }
+
+        .btn{
+            width:100%;
+            background:#0B3C5D;
+            color:white;
+            padding:14px;
+            border-radius:12px;
+            margin-top:20px;
+        }
+
+    </style>
+
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="card w-full max-w-md">
+
+        <h1 class="text-3xl font-bold mb-6 text-center">
+            Citizen Login
+        </h1>
+
+        <form id="loginForm">
+
+            <div class="mb-4">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    class="input"
+                >
+
+            </div>
+
+            <div class="mb-4">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    class="input"
+                >
+
+            </div>
+
+            <button class="btn">
+                Login
+            </button>
+
+        </form>
+
+        <p class="text-center mt-6">
+
+            No account?
+
+            <a
+                href="signup.html"
+                class="text-blue-900 font-semibold"
+            >
+                Signup
+            </a>
+
+        </p>
+
+    </div>
+
+    <script src="js/auth.js"></script>
+
+</body>
+</html>
