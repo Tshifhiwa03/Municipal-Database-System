@@ -6,7 +6,9 @@ const router = express.Router();
 const {
     getAllComplaints,
     createComplaint,
-    getComplaintByTrackingId
+    getComplaintByTrackingId,
+    getAllStaff,
+    updateComplaint
 } = require("../controllers/complaintController");
 
 const upload = multer({
@@ -17,9 +19,9 @@ const upload = multer({
 });
 
 router.get("/", getAllComplaints);
-
-router.post("/", upload.single("evidence"), createComplaint);
-
+router.get("/staff", getAllStaff);
 router.get("/:trackingId", getComplaintByTrackingId);
+router.post("/", upload.single("evidence"), createComplaint);
+router.put("/:id", updateComplaint);
 
 module.exports = router;

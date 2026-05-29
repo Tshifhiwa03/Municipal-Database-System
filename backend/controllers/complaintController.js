@@ -51,6 +51,7 @@ const getAllComplaints = async (req, res) => {
                 request_id,
                 request_ref,
                 logged_by,
+                asset_id,
                 issue_type AS category,
                 severity AS urgency,
                 status,
@@ -99,6 +100,148 @@ const getAllComplaints = async (req, res) => {
             message: "Failed to fetch maintenance requests"
         });
 
+    }
+};
+
+const getComplaintByTrackingId = async (req, res) => {
+    try {
+        const { trackingId } = req.params;
+
+        const [rows] = await pool.query(`
+            SELECT 
+                m.request_id,
+                m.request_ref,
+                m.issue_type,
+                m.severity,
+                m.status,
+                m.reported_date,
+                m.resolved_date,
+                m.source,
+                m.description,
+
+                cm.full_name AS logged_by_name,
+                am.full_name AS assigned_to_name,
+
+                a.asset_name AS asset_name
+
+            FROM asset_management.maintenance_requests m
+
+            LEFT JOIN asset_management.community_member cm
+                ON m.logged_by = cm.user_id
+
+            LEFT JOIN asset_management.community_member am
+                ON m.assigned_to = am.user_id
+
+            LEFT JOIN asset_management.assets a
+                ON m.asset_id = a.asset_id
+
+            WHERE m.request_ref = ?
+        `, [trackingId]);
+
+        const complaint = rows[0];
+
+        if (!complaint) {
+            return res.status(404).json({
+                success: false,
+                message: "Complaint not found"
+            });
+        }
+
+        res.json({
+            success: true,
+            complaint
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+const updateComplaint = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+
+        if (data.resolved_date) {
+            data.status = "RESOLVED";
+        }
+
+        const sql = `
+            UPDATE asset_management.maintenance_requests
+            SET
+                assigned_to = ?,
+                severity = ?,
+                status = ?,
+                resolved_date = ?,
+                cost_estimate = ?,
+                actual_cost = ?,
+                resolution_note = ?,
+                source = ?,
+                description = ?
+            WHERE request_id = ?
+        `;
+
+        const values = [
+            data.assigned_to || null,
+            data.severity || null,
+            data.status || null,
+            data.resolved_date || null,
+            data.cost_estimate || null,
+            data.actual_cost || null,
+            data.resolution_note || null,
+            data.source || null,
+            data.description || null,
+            id
+        ];
+
+        await pool.query(sql, values);
+
+        return res.status(200).json({
+            success: true,
+            message: "Maintenance request updated successfully"
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+const getAllStaff = async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT 
+                staff_id,
+                employee_no,
+                full_name,
+                role,
+                department
+            FROM asset_management.staff
+            ORDER BY full_name ASC
+        `);
+
+        res.json({
+            success: true,
+            staff: rows
+        });
+
+        console.log(rows);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch staff"
+        });
     }
 };
 
@@ -204,5 +347,7 @@ const getComplaintByTrackingId = async (req, res) => {
 module.exports = {
     getAllComplaints,
     createComplaint,
-    getComplaintByTrackingId
+    getComplaintByTrackingId,
+    getAllStaff,
+    updateComplaint  
 };
