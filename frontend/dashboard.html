@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | JHB Civic Report</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- LEAFLET CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet/dist/leaflet.css"
+    />
+
+    <style>
+
+        body{
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fb;
+        }
+
+        .card{
+            background:white;
+            border-radius:20px;
+            padding:24px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="bg-white shadow-md p-4">
+
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+            <h1 class="text-2xl font-bold text-blue-900">
+                JHB Civic Report
+            </h1>
+
+            <div class="space-x-6">
+
+                <a href="index.html">Home</a>
+
+                <a href="report.html">Report</a>
+
+                <a href="track.html">Track</a>
+
+                <a
+                    href="dashboard.html"
+                    class="font-bold text-blue-900"
+                >
+                    Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <section class="max-w-7xl mx-auto px-6 mt-10">
+
+        <h1 class="text-4xl font-bold text-gray-800 mb-3">
+            Municipality Dashboard
+        </h1>
+
+        <p class="text-gray-600">
+            Monitor and manage municipal complaints across Johannesburg.
+        </p>
+
+    </section>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="max-w-7xl mx-auto px-6 mt-10">
+
+        <div class="grid md:grid-cols-4 gap-6">
+
+            <!-- Total -->
+            <div class="card">
+
+                <h3 class="text-gray-500 mb-2">
+                    Total Complaints
+                </h3>
+
+                <h2
+                    id="totalComplaints"
+                    class="text-4xl font-bold text-blue-900"
+                >
+                    0
+                </h2>
+
+            </div>
+
+            <!-- Pending -->
+            <div class="card">
+
+                <h3 class="text-gray-500 mb-2">
+                    Pending
+                </h3>
+
+                <h2
+                    id="pendingComplaints"
+                    class="text-4xl font-bold text-yellow-500"
+                >
+                    0
+                </h2>
+
+            </div>
+
+            <!-- In Progress -->
+            <div class="card">
+
+                <h3 class="text-gray-500 mb-2">
+                    In Progress
+                </h3>
+
+                <h2
+                    id="progressComplaints"
+                    class="text-4xl font-bold text-blue-500"
+                >
+                    0
+                </h2>
+
+            </div>
+
+            <!-- Resolved -->
+            <div class="card">
+
+                <h3 class="text-gray-500 mb-2">
+                    Resolved
+                </h3>
+
+                <h2
+                    id="resolvedComplaints"
+                    class="text-4xl font-bold text-green-500"
+                >
+                    0
+                </h2>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MAP DASHBOARD ================= -->
+
+    <section class="max-w-7xl mx-auto px-6 mt-10">
+
+        <div class="card">
+
+            <div class="flex justify-between items-center mb-6">
+
+                <div>
+
+                    <h2 class="text-2xl font-bold">
+                        Complaint Map
+                    </h2>
+
+                    <p class="text-gray-500">
+                        Live municipality complaints across Johannesburg
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- MAP -->
+            <div
+                id="map"
+                class="rounded-2xl"
+                style="height: 500px;"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TABLE ================= -->
+
+    <section class="max-w-7xl mx-auto px-6 mt-10 mb-20">
+
+        <div class="card overflow-x-auto">
+
+            <div class="flex justify-between items-center mb-6">
+
+                <h2 class="text-2xl font-bold">
+                    Complaint Records
+                </h2>
+
+                <select
+                    id="statusFilter"
+                    class="border rounded-lg px-4 py-2"
+                >
+                    <option value="All">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+
+            </div>
+
+            <table class="w-full text-left">
+
+                <thead>
+
+                    <tr class="border-b">
+
+                        <th class="py-4">Reference</th>
+                        <th>Logged By</th>
+                        <th>Issue Type</th>
+                        <th>Region</th>
+                        <th>Ward</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="complaintsTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- UPDATE MODAL -->
+    <!-- ===================================================== -->
+
+    <div
+        id="updateModal"
+        class="
+            hidden
+            fixed
+            inset-0
+            bg-black/50
+            z-50
+            flex
+            items-center
+            justify-center
+            p-6
+        "
+    >
+
+        <div
+            class="
+                bg-white
+                rounded-2xl
+                p-6
+                w-full
+                max-w-5xl
+                max-h-[90vh]
+                overflow-y-auto
+            "
+        >
+
+            <div class="flex justify-between items-center mb-6">
+
+                <h2 class="text-2xl font-bold">
+                    Update Maintenance Request
+                </h2>
+
+                <button
+                    onclick="closeModal()"
+                    class="text-red-500 text-2xl"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+            <form onsubmit="submitUpdate(event)">
+
+                <div class="grid md:grid-cols-2 gap-4">
+
+                    <input id="request_id" placeholder="Request ID" class="border p-3 rounded-lg">
+                    <input id="request_ref" placeholder="Request Ref" class="border p-3 rounded-lg">
+                    <input id="asset_id" placeholder="Asset ID" class="border p-3 rounded-lg">
+                    <input id="assigned_to" placeholder="Assigned To" class="border p-3 rounded-lg">
+                    <input id="logged_by" placeholder="Logged By" class="border p-3 rounded-lg">
+                    <input id="issue_type" placeholder="Issue Type" class="border p-3 rounded-lg">
+                    <input id="severity" placeholder="Severity" class="border p-3 rounded-lg">
+                    <input id="status" placeholder="Status" class="border p-3 rounded-lg">
+
+                    <input
+                        type="date"
+                        id="reported_date"
+                        class="border p-3 rounded-lg"
+                    >
+
+                    <input
+                        type="date"
+                        id="resolved_date"
+                        class="border p-3 rounded-lg"
+                    >
+
+                    <input id="cost_estimate" placeholder="Cost Estimate" class="border p-3 rounded-lg">
+                    <input id="actual_cost" placeholder="Actual Cost" class="border p-3 rounded-lg">
+                    <input id="source" placeholder="Source" class="border p-3 rounded-lg">
+
+                </div>
+
+                <textarea
+                    id="resolution_note"
+                    placeholder="Resolution Note"
+                    class="border p-3 rounded-lg w-full mt-4"
+                ></textarea>
+
+                <textarea
+                    id="description"
+                    placeholder="Description"
+                    class="border p-3 rounded-lg w-full mt-4"
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="
+                        mt-6
+                        bg-green-600
+                        hover:bg-green-700
+                        text-white
+                        px-6
+                        py-3
+                        rounded-xl
+                    "
+                >
+                    Save Update
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEAFLET JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- DASHBOARD JS -->
+    <script src="js/dashboard.js"></script>
+
+</body>
+</html>

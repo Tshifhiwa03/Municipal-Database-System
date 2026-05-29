@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>JHB Maintenance</title>
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Google Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            body {
+                font-family: "Poppins", sans-serif;
+                background-color: #f5f7fb;
+            }
+
+            .hero-gradient {
+                background: linear-gradient(135deg, #0b3c5d 0%, #145c8c 100%);
+            }
+
+            .category-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .transition-custom {
+                transition: all 0.3s ease;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- ================= NAVBAR ================= -->
+
+        <nav class="bg-white shadow-md sticky top-0 z-50">
+            <div
+                class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
+            >
+                <!-- Logo -->
+                <div>
+                    <a href="/" class="text-2xl font-bold text-blue-900">
+                        JHB Maintenance
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <!-- Home -->
+                    <a href="index.html" class="text-blue-900 font-semibold">
+                        Home
+                    </a>
+
+                    <!-- Report -->
+                    <a
+                        href="report.html"
+                        class="text-gray-700 hover:text-blue-800 font-medium"
+                    >
+                        Report Issue
+                    </a>
+
+                    <!-- Track -->
+                    <a
+                        href="track.html"
+                        class="text-gray-700 hover:text-blue-800 font-medium"
+                    >
+                        Track Complaint
+                    </a>
+
+                    <!-- Dashboard -->
+                    <button
+                        type="button"
+                        onclick="location.href = 'login.html'"
+                        class="bg-blue-900 hover:bg-blue-800 text-white px-6 py-2 rounded-xl font-medium transition-custom"
+                    >
+                        Login
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <button class="md:hidden text-blue-900 text-2xl">☰</button>
+            </div>
+        </nav>
+
+        <!-- ================= HERO SECTION ================= -->
+
+        <section class="hero-gradient text-white">
+            <div class="max-w-7xl mx-auto px-6 py-24">
+                <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <!-- Left Content -->
+                    <div>
+                        <h1 class="text-5xl font-bold leading-tight mb-6">
+                            Report Municipality Issues Easily
+                        </h1>
+
+                        <p class="text-lg text-blue-100 mb-8 leading-relaxed">
+                            Help improve Johannesburg communities by reporting
+                            electricity outages, potholes, water cuts, sewage
+                            leaks, broken traffic lights and more.
+                        </p>
+
+                        <!-- Buttons -->
+                        <div class="flex flex-wrap gap-4">
+                            <!-- Report Button -->
+                            <a
+                                href="report.html"
+                                class="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-4 rounded-xl transition-custom"
+                            >
+                                Report an Issue
+                            </a>
+
+                            <!-- Track Button -->
+                            <a
+                                href="track.html"
+                                class="border border-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-xl font-semibold transition-custom"
+                            >
+                                Track Complaint
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Content -->
+                    <div class="flex justify-center">
+                        <div
+                            class="bg-white/10 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md"
+                        >
+                            <h2 class="text-2xl font-semibold mb-6">
+                                Municipality Statistics
+                            </h2>
+
+                            <div class="space-y-5">
+                                <!-- Stat -->
+                                <div class="bg-white/10 p-5 rounded-xl">
+                                    <h3 class="text-3xl font-bold">1,284</h3>
+
+                                    <p class="text-blue-100">
+                                        Active Complaints
+                                    </p>
+                                </div>
+
+                                <!-- Stat -->
+                                <div class="bg-white/10 p-5 rounded-xl">
+                                    <h3 class="text-3xl font-bold">845</h3>
+
+                                    <p class="text-blue-100">
+                                        Resolved This Month
+                                    </p>
+                                </div>
+
+                                <!-- Stat -->
+                                <div class="bg-white/10 p-5 rounded-xl">
+                                    <h3 class="text-3xl font-bold">72%</h3>
+
+                                    <p class="text-blue-100">Resolution Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Heading -->
+                <div class="text-center mb-14">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                        Complaint Categories
+                    </h2>
+
+                    <p class="text-gray-600 text-lg">
+                        Select a category to report municipal issues quickly
+                    </p>
+                </div>
+
+                <!-- Category Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Electricity -->
+                    <div
+                        class="category-card transition-custom bg-white p-8 rounded-2xl shadow-md hover:shadow-xl cursor-pointer"
+                    >
+                        <div class="text-5xl mb-4">⚡</div>
+
+                        <h3 class="text-xl font-semibold mb-2">Electricity</h3>
+
+                        <p class="text-gray-600">
+                            Report power outages, damaged transformers and
+                            faults.
+                        </p>
+                    </div>
+
+                    <!-- Water -->
+                    <div
+                        class="category-card transition-custom bg-white p-8 rounded-2xl shadow-md hover:shadow-xl cursor-pointer"
+                    >
+                        <div class="text-5xl mb-4">💧</div>
+
+                        <h3 class="text-xl font-semibold mb-2">Water Supply</h3>
+
+                        <p class="text-gray-600">
+                            Report water cuts, leaks and burst pipes.
+                        </p>
+                    </div>
+
+                    <!-- Roads -->
+                    <div
+                        class="category-card transition-custom bg-white p-8 rounded-2xl shadow-md hover:shadow-xl cursor-pointer"
+                    >
+                        <div class="text-5xl mb-4">🛣️</div>
+
+                        <h3 class="text-xl font-semibold mb-2">Potholes</h3>
+
+                        <p class="text-gray-600">
+                            Report road damage and dangerous potholes.
+                        </p>
+                    </div>
+
+                    <!-- Traffic -->
+                    <div
+                        class="category-card transition-custom bg-white p-8 rounded-2xl shadow-md hover:shadow-xl cursor-pointer"
+                    >
+                        <div class="text-5xl mb-4">🚦</div>
+
+                        <h3 class="text-xl font-semibold mb-2">
+                            Traffic Lights
+                        </h3>
+
+                        <p class="text-gray-600">
+                            Report broken or malfunctioning traffic lights.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-10">
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-800 mb-2">
+                            Live Municipality Alerts
+                        </h2>
+
+                        <p class="text-gray-600">
+                            Latest service interruptions and notices
+                        </p>
+                    </div>
+
+                    <button
+                        class="bg-blue-900 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-medium transition-custom"
+                    >
+                        View All
+                    </button>
+                </div>
+
+                <!-- Alerts -->
+                <div class="space-y-6">
+                    <!-- Alert 1 -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-red-500"
+                    >
+                        <div
+                            class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                        >
+                            <div>
+                                <h3 class="font-semibold text-xl mb-1">
+                                    Water Interruption - Soweto Region D
+                                </h3>
+
+                                <p class="text-gray-600">
+                                    Emergency maintenance affecting multiple
+                                    wards.
+                                </p>
+                            </div>
+
+                            <span
+                                class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-medium w-fit"
+                            >
+                                Urgent
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Alert 2 -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-yellow-500"
+                    >
+                        <div
+                            class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                        >
+                            <div>
+                                <h3 class="font-semibold text-xl mb-1">
+                                    Traffic Light Fault - CBD
+                                </h3>
+
+                                <p class="text-gray-600">
+                                    Repair teams dispatched to affected
+                                    intersections.
+                                </p>
+                            </div>
+
+                            <span
+                                class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-medium w-fit"
+                            >
+                                In Progress
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BACKEND TEST SECTION -->
+        <section class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">
+                    Backend Connection Test
+                </h2>
+
+                <p class="text-gray-600 mb-6">
+                    This data is coming from the backend API.
+                </p>
+
+                <div
+                    id="apiResponse"
+                    class="bg-gray-100 p-6 rounded-2xl shadow text-left text-lg"
+                >
+                    Loading backend response...
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-blue-950 text-white py-14">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-10">
+                    <!-- About -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">
+                            JHB Civic Report
+                        </h2>
+
+                        <p class="text-blue-100 leading-relaxed">
+                            A digital platform helping Johannesburg residents
+                            report municipal service delivery issues quickly and
+                            efficiently.
+                        </p>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+
+                        <ul class="space-y-3 text-blue-100">
+                            <li>
+                                <a href="index.html"> Home </a>
+                            </li>
+
+                            <li>
+                                <a href="report.html"> Report Issue </a>
+                            </li>
+
+                            <li>
+                                <a href="track.html"> Track Complaint </a>
+                            </li>
+
+                            <li>
+                                <a href="dashboard.html"> Dashboard </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">
+                            Emergency Contacts
+                        </h3>
+
+                        <ul class="space-y-3 text-blue-100">
+                            <li>📞 011 375 5555</li>
+                            <li>🚓 Emergency: 10111</li>
+                            <li>🚑 Ambulance: 10177</li>
+                            <li>📧 support@jhbmaintenance.co.za</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div
+                    class="border-t border-blue-800 mt-10 pt-6 text-center text-blue-200"
+                >
+                    © 2026 JHB Maintenance. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            async function loadBackendData() {
+                try {
+                    const response = await fetch(
+                        "http://localhost:5000/api/test",
+                    );
+
+                    const data = await response.json();
+
+                    document.getElementById("apiResponse").innerHTML = `
+            <p><strong>Success:</strong> ${data.success}</p>
+            <p><strong>Message:</strong> ${data.message}</p>
+            <p><strong>Project:</strong> ${data.project}</p>
+        `;
+                } catch (error) {
+                    document.getElementById("apiResponse").innerHTML = `
+            <p class="text-red-600">
+                Failed to connect to backend.
+            </p>
+        `;
+
+                    console.error(error);
+                }
+            }
+
+            loadBackendData();
+        </script>
+    </body>
+</html>

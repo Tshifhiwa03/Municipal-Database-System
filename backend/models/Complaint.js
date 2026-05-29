@@ -58,6 +58,11 @@ const complaintSchema = new mongoose.Schema({
         required: true
     },
 
+    evidenceImageId: {
+        type: String,
+        default: null
+    },
+
     status: {
         type: String,
         default: "Pending"

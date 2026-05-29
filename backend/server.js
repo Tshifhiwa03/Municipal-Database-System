@@ -1,64 +1,31 @@
-
-const complaintRoutes =
-    require("./routes/complaintRoutes");
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 
-
+const complaintRoutes = require("./routes/complaintRoutes");
+const imageRoutes = require("./routes/imageRoutes");
+const communityMemberRoutes = require("./routes/communityMemberRoutes");
 
 const app = express();
-
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/complaints", complaintRoutes);
 
-
-// ======================================
-// MONGODB CONNECTION
-// ======================================
-
-mongoose.connect("mongodb://127.0.0.1:27017/jhb_civic_report")
-
-.then(() => {
-
-    console.log("MongoDB Connected Successfully");
-
-})
-
-.catch((error) => {
-
-    console.log("MongoDB Connection Error:", error);
-
-});
-
+app.use("/api/maintenance-requests", complaintRoutes);
+app.use("/api/images", imageRoutes);
+app.use("/api/community_member", communityMemberRoutes);
 
 app.get("/", (req, res) => {
-
     res.send("JHB Civic Report Backend Running");
-
 });
 
 app.get("/api/test", (req, res) => {
-
     res.json({
-
         success: true,
-        message: "Backend API working successfully",
-        project: "JHB Civic Report System"
-
+        message: "Backend API working successfully"
     });
-
 });
 
-// ======================================
-// START SERVER
-// ======================================
-
 app.listen(PORT, () => {
-
     console.log(`Server running on port ${PORT}`);
-
 });

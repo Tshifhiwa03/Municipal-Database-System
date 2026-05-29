@@ -1,43 +1,25 @@
-// ======================================
-// EXPRESS ROUTER
-// ======================================
-
 const express = require("express");
+const multer = require("multer");
 
 const router = express.Router();
 
-
-// ======================================
-// IMPORT CONTROLLER
-// ======================================
-
 const {
-
     getAllComplaints,
     createComplaint,
     getComplaintByTrackingId
-
 } = require("../controllers/complaintController");
 
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10 * 1024 * 1024
+    }
+});
 
-// ======================================
-// ROUTES
-// ======================================
-
-// GET ALL COMPLAINTS
 router.get("/", getAllComplaints);
 
+router.post("/", upload.single("evidence"), createComplaint);
 
-// CREATE COMPLAINT
-router.post("/", createComplaint);
-
-
-// GET COMPLAINT BY TRACKING ID
 router.get("/:trackingId", getComplaintByTrackingId);
-
-
-// ======================================
-// EXPORT ROUTER
-// ======================================
 
 module.exports = router;
