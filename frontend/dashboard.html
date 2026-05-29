@@ -207,14 +207,14 @@
                     Complaint Records
                 </h2>
 
-                <select
-                    id="statusFilter"
-                    class="border rounded-lg px-4 py-2"
-                >
-                    <option value="All">All Statuses</option>
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Resolved">Resolved</option>
+                <select id="statusFilter" class="border rounded-lg px-4 py-2">
+                    <option value="ALL">All Statuses</option>
+                    <option value="PENDING">Pending</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ASSIGNED">Assigned</option>
+                    <option value="RESOLVED">Resolved</option>
+                    <option value="CLOSED">Closed</option>
+                    <option value="OVERDUE">Overdue</option>
                 </select>
 
             </div>
@@ -295,65 +295,129 @@
 
             </div>
 
-            <form onsubmit="submitUpdate(event)">
+           <form onsubmit="submitUpdate(event)">
 
-                <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
 
-                    <input id="request_id" placeholder="Request ID" class="border p-3 rounded-lg">
-                    <input id="request_ref" placeholder="Request Ref" class="border p-3 rounded-lg">
-                    <input id="asset_id" placeholder="Asset ID" class="border p-3 rounded-lg">
-                    <input id="assigned_to" placeholder="Assigned To" class="border p-3 rounded-lg">
-                    <input id="logged_by" placeholder="Logged By" class="border p-3 rounded-lg">
-                    <input id="issue_type" placeholder="Issue Type" class="border p-3 rounded-lg">
-                    <input id="severity" placeholder="Severity" class="border p-3 rounded-lg">
-                    <input id="status" placeholder="Status" class="border p-3 rounded-lg">
+        <!-- Request ID -->
+        <div>
+            <label class="text-sm font-medium">Request ID</label>
+            <input id="request_id" placeholder="Request ID" class="border p-3 rounded-lg w-full">
+        </div>
 
-                    <input
-                        type="date"
-                        id="reported_date"
-                        class="border p-3 rounded-lg"
-                    >
+        <!-- Request Ref -->
+        <div>
+            <label class="text-sm font-medium">Request Ref</label>
+            <input id="request_ref" placeholder="Request Ref" class="border p-3 rounded-lg w-full">
+        </div>
 
-                    <input
-                        type="date"
-                        id="resolved_date"
-                        class="border p-3 rounded-lg"
-                    >
+        <!-- Asset ID -->
+        <div>
+            <label class="text-sm font-medium">Asset ID</label>
+            <input id="asset_id" placeholder="Asset ID" class="border p-3 rounded-lg w-full">
+        </div>
 
-                    <input id="cost_estimate" placeholder="Cost Estimate" class="border p-3 rounded-lg">
-                    <input id="actual_cost" placeholder="Actual Cost" class="border p-3 rounded-lg">
-                    <input id="source" placeholder="Source" class="border p-3 rounded-lg">
+        <!-- Logged By -->
+        <div>
+            <label class="text-sm font-medium">Logged By</label>
+            <input id="logged_by" placeholder="Logged By" class="border p-3 rounded-lg w-full">
+        </div>
 
-                </div>
+        <!-- Issue Type -->
+        <div>
+            <label class="text-sm font-medium">Issue Type</label>
+            <input id="issue_type" placeholder="Issue Type" class="border p-3 rounded-lg w-full">
+        </div>
 
-                <textarea
-                    id="resolution_note"
-                    placeholder="Resolution Note"
-                    class="border p-3 rounded-lg w-full mt-4"
-                ></textarea>
+        <!-- Severity -->
+        <div>
+            <label class="text-sm font-medium">Severity</label>
+            <input id="severity" placeholder="Severity" class="border p-3 rounded-lg w-full">
+        </div>
 
-                <textarea
-                    id="description"
-                    placeholder="Description"
-                    class="border p-3 rounded-lg w-full mt-4"
-                ></textarea>
+        <!-- STATUS -->
+        <div>
+            <label class="text-sm font-medium">Status</label>
+            <select id="status" class="border p-3 rounded-lg w-full">
+                <option value="" disabled selected>Select Status</option>
+                <option value="PENDING">Pending</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="ASSIGNED">Assigned</option>
+                <option value="RESOLVED">Resolved</option>
+                <option value="CLOSED">Closed</option>
+                <option value="OVERDUE">Overdue</option>
+            </select>
+        </div>
 
-                <button
-                    type="submit"
-                    class="
-                        mt-6
-                        bg-green-600
-                        hover:bg-green-700
-                        text-white
-                        px-6
-                        py-3
-                        rounded-xl
-                    "
-                >
-                    Save Update
-                </button>
+        <!-- ASSIGNED TO -->
+        <div>
+            <label class="text-sm font-medium">Assigned To</label>
+            <select id="assigned_to" class="border p-3 rounded-lg w-full">
+                <option value="" disabled selected>Select Staff Member</option>
+            </select>
+        </div>
 
-            </form>
+        <!-- Reported Date -->
+        <div>
+            <label class="text-sm font-medium">Reported Date</label>
+            <input type="text" id="reported_date" class="border p-3 rounded-lg w-full">
+        </div>
+
+        <!-- Resolved Date -->
+        <div>
+            <label class="text-sm font-medium">Resolved Date</label>
+            <input type="date" id="resolved_date" class="border p-3 rounded-lg w-full">
+        </div>
+
+        <!-- Cost Estimate -->
+        <div>
+            <label class="text-sm font-medium">Cost Estimate</label>
+            <input id="cost_estimate" placeholder="Cost Estimate" class="border p-3 rounded-lg w-full">
+        </div>
+
+        <!-- Actual Cost -->
+        <div>
+            <label class="text-sm font-medium">Actual Cost</label>
+            <input id="actual_cost" placeholder="Actual Cost" class="border p-3 rounded-lg w-full">
+        </div>
+
+        <!-- Source -->
+        <div>
+            <label class="text-sm font-medium">Source</label>
+            <input id="source" placeholder="Source" class="border p-3 rounded-lg w-full">
+        </div>
+
+    </div>
+
+    <!-- Resolution Note -->
+    <div class="mt-4">
+        <label class="text-sm font-medium">Resolution Note</label>
+        <textarea
+            id="resolution_note"
+            placeholder="Resolution Note"
+            class="border p-3 rounded-lg w-full"
+        ></textarea>
+    </div>
+
+    <!-- Description -->
+    <div class="mt-4">
+        <label class="text-sm font-medium">Description</label>
+        <textarea
+            id="description"
+            placeholder="Description"
+            class="border p-3 rounded-lg w-full"
+        ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+        type="submit"
+        class="mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl"
+    >
+        Save Update
+    </button>
+
+</form>
 
         </div>
 

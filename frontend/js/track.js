@@ -1,46 +1,68 @@
-
-function trackComplaint() {
+async function trackComplaint() {
 
     const searchId = document.getElementById("searchId").value.trim();
     const resultDiv = document.getElementById("result");
 
     if (!searchId) {
-        alert("Please enter a complaint ID");
+        alert("Please enter a complaint reference");
         return;
     }
 
-    const complaints = JSON.parse(localStorage.getItem("complaints")) || [];
+    try {
 
-    const found = complaints.find(c => c.id === searchId);
+        const response = await fetch(
+            `http://localhost:5000/api/maintenance-requests/${searchId}`
+        );
 
-    if (!found) {
+        const text = await response.text();
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            throw new Error("Invalid server response");
+        }
+
+        if (!response.ok || !data.success) {
+            resultDiv.innerHTML = `
+                <div class="text-red-600 font-semibold mt-4">
+                    Complaint not found.
+                </div>
+            `;
+            return;
+        }
+
+        const found = data.complaint;
 
         resultDiv.innerHTML = `
-            <div class="text-red-600 font-semibold mt-4">
-                Complaint not found.
+            <div class="bg-white p-6 rounded-xl mt-6 space-y-2 shadow">
+
+                <h3 class="text-xl font-bold text-blue-900">
+                    Complaint Details
+                </h3>
+
+                <p><strong>Reference:</strong> ${found.request_ref}</p>
+                <p><strong>Logged By:</strong> ${found.logged_by_name || "-"}</p>
+                <p><strong>Assigned To:</strong> ${found.assigned_to_name || "Unassigned"}</p>
+                <p><strong>Asset:</strong> ${found.asset_name || "-"}</p>
+                <p><strong>Category:</strong> ${found.issue_type}</p>
+                <p><strong>Severity:</strong> ${found.severity}</p>
+                <p><strong>Status:</strong> ${found.status}</p>
+                <p><strong>Source:</strong> ${found.source || "-"}</p>
+                <p><strong>Description:</strong> ${found.description}</p>
+                <p><strong>Reported Date:</strong> ${new Date(found.reported_date).toLocaleString()}</p>
+                <p><strong>Resolved Date:</strong> ${found.resolved_date ? new Date(found.resolved_date).toLocaleString() : "-"}</p>
+
             </div>
         `;
 
-        return;
+    } catch (error) {
+        console.error(error);
+
+        resultDiv.innerHTML = `
+            <div class="text-red-600 font-semibold mt-4">
+                Error tracking complaint.
+            </div>
+        `;
     }
-
-    resultDiv.innerHTML = `
-        <div class="bg-gray-50 p-6 rounded-xl mt-4 space-y-2">
-
-            <h3 class="text-xl font-bold text-blue-900">
-                Complaint Details
-            </h3>
-
-            <p><strong>ID:</strong> ${found.id}</p>
-            <p><strong>Name:</strong> ${found.fullName}</p>
-            <p><strong>Category:</strong> ${found.category}</p>
-            <p><strong>Region:</strong> ${found.region}</p>
-            <p><strong>Ward:</strong> ${found.ward}</p>
-            <p><strong>Status:</strong> ${found.status}</p>
-            <p><strong>Urgency:</strong> ${found.urgency}</p>
-            <p><strong>Description:</strong> ${found.description}</p>
-            <p><strong>Date:</strong> ${new Date(found.createdAt).toLocaleString()}</p>
-
-        </div>
-    `;
 }
